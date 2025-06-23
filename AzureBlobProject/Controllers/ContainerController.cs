@@ -14,7 +14,7 @@ namespace AzureBlobProject.Controllers
         {
             var allContainer = await _containerService.GetAllContainer();
 
-            return View();
+            return View(allContainer);
         }
     }
 }
