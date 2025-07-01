@@ -40,6 +40,12 @@ namespace AzureBlobProject.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ViewFile(string name, string containerName)
+        {
+            return Redirect(await _blobService.GetBlob(name, containerName));
+        }
+
 
 
     }
