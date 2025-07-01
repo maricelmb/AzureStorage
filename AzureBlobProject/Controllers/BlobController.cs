@@ -20,7 +20,13 @@ namespace AzureBlobProject.Controllers
             return View(blobObj);
         }
 
-        
-       
+        [HttpGet]
+        public async Task<IActionResult> AddFile(string containerName)
+        {
+            return View();
+        }
+
+
+
     }
 }
