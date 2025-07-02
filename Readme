@@ -2,7 +2,7 @@ Tech used:
 Azure Blob storage
 ASP .Net Core MVC (.Net 9)
 
-Use Case:
+Use Case: (Check Wiki tab for screenshots)
 1. View all files and containers
 2. View containers  
 3. Add container to Azure
