@@ -7,10 +7,12 @@ namespace AzureBlobProject.Services
     public class ContainerService : IContainerService
     {
         private readonly BlobServiceClient _blobServiceClient;
+       
 
         public ContainerService(BlobServiceClient blobServiceClient)
         {
-            _blobServiceClient = blobServiceClient;        
+            _blobServiceClient = blobServiceClient;
+            
         }
 
         public async Task CreateContainer(string containerName)
@@ -39,9 +41,25 @@ namespace AzureBlobProject.Services
             return containerNames;
         }
 
-        public Task<List<string>> GetAllContainersAndBlobs()
+        public async Task<List<string>> GetAllContainersAndBlobs()
         {
-            throw new NotImplementedException();
+            List<string> containerAndBlobName = new();
+            containerAndBlobName.Add("-----AccountName : " + _blobServiceClient.AccountName + "------");
+            containerAndBlobName.Add("---------------------------------------------------------------");
+
+            await foreach (BlobContainerItem item in _blobServiceClient.GetBlobContainersAsync())
+            {
+                containerAndBlobName.Add("-----"+item.Name);
+
+                BlobContainerClient _blobContainer = _blobServiceClient.GetBlobContainerClient(item.Name);
+
+                await foreach (BlobItem blobItem in _blobContainer.GetBlobsAsync())
+                { 
+                    containerAndBlobName.Add($">>{blobItem.Name}");
+                }
+            }
+
+            return containerAndBlobName;
         }
     }
 }
